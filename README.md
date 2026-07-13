@@ -1,6 +1,6 @@
-# Lorie Jean Estrera — Portfolio
+# Lorie Jean Estrera De Castro — Portfolio
 
-A static one-page portfolio site (plain HTML/CSS/JS, no build step) built from Lorie Jean Estrera's resume.
+A static one-page portfolio site (plain HTML/CSS/JS, no build step) built from Lorie Jean Estrera De Castro's resume.
 
 ## Files
 - `index.html` — page content
