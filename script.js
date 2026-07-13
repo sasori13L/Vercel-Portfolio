@@ -16,6 +16,58 @@ if (navToggle && nav) {
   });
 }
 
+// Tools panel: click a label to preview its image on the right
+const toolLabels = document.querySelectorAll('.tool-label');
+const previewImg = document.getElementById('toolsPreviewImg');
+
+function showToolPreview(label) {
+  const imageUrl = label.dataset.image;
+  const altText = label.dataset.alt || '';
+
+  if (imageUrl) {
+    previewImg.src = imageUrl;
+    previewImg.alt = altText;
+    previewImg.hidden = false;
+  } else {
+    // No image for this tool — leave the preview blank
+    previewImg.src = '';
+    previewImg.alt = '';
+    previewImg.hidden = true;
+  }
+}
+
+function clearToolPreview() {
+  previewImg.src = '';
+  previewImg.alt = '';
+  previewImg.hidden = true;
+}
+
+if (toolLabels.length && previewImg) {
+  toolLabels.forEach(label => {
+    label.addEventListener('click', () => {
+      const alreadyActive = label.classList.contains('active');
+
+      toolLabels.forEach(l => {
+        l.classList.remove('active');
+        l.setAttribute('aria-pressed', 'false');
+      });
+
+      if (alreadyActive) {
+        clearToolPreview();
+        return;
+      }
+
+      label.classList.add('active');
+      label.setAttribute('aria-pressed', 'true');
+      showToolPreview(label);
+    });
+  });
+
+  // Default open: whichever label is marked active in the HTML (PropertyMe)
+  const defaultLabel = document.querySelector('.tool-label.active') || toolLabels[0];
+  showToolPreview(defaultLabel);
+}
+
 // Scroll reveal for ledger entries
 const revealEls = document.querySelectorAll('[data-reveal]');
 
