@@ -16,7 +16,7 @@ if (navToggle && nav) {
   });
 }
 
-// Scroll reveal for ledger entries
+// Scroll reveal for commit entries
 const revealEls = document.querySelectorAll('[data-reveal]');
 
 if ('IntersectionObserver' in window && revealEls.length) {
@@ -31,6 +31,5 @@ if ('IntersectionObserver' in window && revealEls.length) {
 
   revealEls.forEach(el => observer.observe(el));
 } else {
-  // Fallback: no IO support, just show everything
   revealEls.forEach(el => el.classList.add('in-view'));
 }

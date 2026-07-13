@@ -1,34 +1,30 @@
-# Lorie Jean Estrera — Portfolio
+# Lemuel De Castro — Portfolio
 
-A static one-page portfolio site (plain HTML/CSS/JS, no build step) built from Lorie Jean Estrera's resume.
+A static one-page portfolio site (plain HTML/CSS/JS, no build step) built from Lemuel De Castro's resume.
+Design concept: work history as a `git log`, skills as a `stack.json` package file, hero and contact as terminal windows.
 
 ## Files
 - `index.html` — page content
-- `style.css` — design system ("employment ledger" theme)
+- `style.css` — design system (terminal / diff / package-file theme)
 - `script.js` — mobile nav + scroll-reveal animation
 
-## Deploy to Vercel
+## Deploy to Vercel (updating this repo)
 
-### Option A — push to your existing GitHub repo, then import
 ```bash
-git init
-git remote add origin https://github.com/sasori13L/lorie-jean-portfolio.git
 git add .
-git commit -m "Initial portfolio site"
-git branch -M main
-git push -u origin main
+git commit -m "Rebuild portfolio for Lemuel De Castro"
+git push origin main
 ```
-Then in Vercel: **Add New → Project → Import** the `lorie-jean-portfolio` repo.
-Framework preset: **Other** (static site) — no build command, no output directory needed.
-Click **Deploy**.
 
-### Option B — deploy directly from this folder with Vercel CLI
+Vercel is already connected to `sasori13L/Vercel-Portfolio` (live at loriejean-portfolio.vercel.app per the repo's About link) — pushing to `main` will trigger a redeploy automatically.
+
+If you'd rather deploy this as a separate site instead of overwriting the existing one:
 ```bash
 npm i -g vercel
 cd path/to/this/folder
-vercel
+vercel --prod
 ```
-Follow the prompts (link/create project, accept defaults) and it will give you a live URL.
+This creates a new Vercel project without touching the existing deployment.
 
 ## Editing later
 - Update text directly in `index.html`.
