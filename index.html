@@ -3,226 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lemuel De Castro — Full Stack Developer</title>
-<meta name="description" content="Portfolio of Lemuel De Castro, full stack developer with 10 years across PHP, Laravel, Vue.js, Flutter, and AI/LLM integration.">
+<title>Lemuel De Castro — Full-Stack Developer</title>
+<meta name="description" content="Lemuel De Castro, full-stack developer in Cebu City, Philippines. Ten years across PHP/Laravel, Vue, Next.js, Flutter, and AI integrations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <a class="brand" href="#top">
-    <span class="brand-dot"></span>
-    <span class="brand-name">lemuel<span class="brand-punc">@</span>portfolio<span class="brand-punc">:</span><span class="brand-path">~$</span></span>
-  </a>
-  <nav class="nav" id="nav">
-    <a href="#log">experience</a>
-    <a href="#skills">skills</a>
-    <a href="#education">education</a>
-    <a href="#contact">contact</a>
+<div class="skip"><a href="#main">Skip to content</a></div>
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav-mark">Lemuel De Castro</a>
+
+  <nav class="nav-links" aria-label="Section navigation">
+    <a href="#about" data-nav="about">About</a>
+    <a href="#work" data-nav="work">Experience</a>
+    <a href="#stack" data-nav="stack">Stack</a>
+    <a href="#contact" data-nav="contact">Contact</a>
   </nav>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+
+  <div class="nav-actions">
+    <button class="search-trigger" id="paletteOpen" aria-haspopup="dialog" aria-controls="palette" aria-label="Open quick navigation">
+      <span>Jump to…</span>
+      <kbd>/</kbd>
+    </button>
+    <a href="mailto:lemueldecastro13@gmail.com" class="btn btn--primary btn--sm">Email me</a>
+  </div>
 </header>
 
-<main id="top">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="terminal-window">
-      <div class="terminal-bar">
-        <span class="tdot tdot-r"></span><span class="tdot tdot-y"></span><span class="tdot tdot-g"></span>
-        <span class="terminal-title">zsh — whoami</span>
-      </div>
-      <div class="terminal-body">
-        <p class="term-line"><span class="prompt">$</span> whoami</p>
-        <h1 class="term-output-name">Lemuel De Castro</h1>
-        <p class="term-line"><span class="prompt">$</span> cat role.txt</p>
-        <p class="term-output">Full Stack Developer — PHP/Laravel · Vue/Next · Flutter · AI/LLM integration</p>
-        <p class="term-line"><span class="prompt">$</span> cat about.md</p>
-        <p class="term-output term-about">
-          10 years of end-to-end ownership across PHP and Vue.js projects — schema design, API
-          development, front-end components, deployment. Web and mobile, including Flutter apps and
-          WordPress builds. Currently deep in AI/LLM API integration and Spec Driven Development to
-          ship features predictably and keep codebases clean.
-        </p>
-        <p class="term-line"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
-      </div>
+<!-- Command palette -->
+<div class="palette-overlay" id="paletteOverlay" hidden>
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Quick navigation">
+    <div class="palette-input-row">
+      <span class="palette-caret">/</span>
+      <input type="text" id="paletteInput" class="palette-input" placeholder="Jump to a section, or run a command…" autocomplete="off">
+      <kbd>esc</kbd>
     </div>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#log">git log --experience</a>
-      <a class="btn btn-ghost" href="mailto:lemueldecastro13@gmail.com">contact --email</a>
+    <ul class="palette-list" id="paletteList"></ul>
+  </div>
+</div>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <p class="eyebrow">Full-stack developer — Cebu City, Philippines</p>
+    <h1>Ten years across the stack. Lately, most of it talks to AI.</h1>
+    <p class="hero-sub">I'm Lemuel. My base is PHP, Laravel, and Vue — the parts underneath keep me honest. Around that I work in Next.js, Flutter, and lately a lot of OpenAI, Claude, and Gemini, wired into real workflows using Spec-Driven Development so the fast-moving parts don't fall over.</p>
+
+      <div class="hero-actions">
+        <a href="#work" class="btn btn--primary">See the work</a>
+        <a href="#stack" class="btn btn--ghost">Browse the stack</a>
+      </div>
+
+      <div class="hero-cloud" id="heroCloud" aria-hidden="true"></div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="block-head">
+      <h2>About</h2>
+    </div>
+    <div class="block-body">
+      <p>I've spent the last decade working end to end — schema design and APIs through to the interface and the deploy. Most of it has been in PHP and Vue.js, but the stack has widened with the work: Flutter for offline-first mobile, WordPress and Shopify for client sites, Next.js wherever a headless frontend made more sense than a monolith.</p>
+      <p>Lately most of my work sits where two things meet: wiring OpenAI, Claude, and Gemini into existing modules so they automate what used to be manual, and using Spec-Driven Development to keep that kind of fast-moving feature work from turning into a mess six months later.</p>
+      <p>I like the projects other developers avoid — an undocumented codebase, a company still tracking cash flow in spreadsheets, a grading system that used to run entirely on paper. There's usually a clear before and after, and I'd rather be measured on that than on lines of code.</p>
     </div>
   </section>
 
-  <!-- EXPERIENCE AS GIT LOG -->
-  <section class="log-section" id="log">
-    <div class="section-head">
-      <p class="eyebrow">$ git log --stat --all</p>
-      <h2>Commit history</h2>
-      <p class="section-lede">Five roles, one branch of continuous shipping — from paper-based grading systems to AI-orchestrated pipelines.</p>
+  <section class="block" id="work">
+    <div class="block-head">
+      <h2>Experience</h2>
+      <p class="block-hint">Click a role to expand it</p>
     </div>
 
-    <div class="log">
+    <ul class="accordion" id="accordion">
 
-      <article class="commit" data-reveal>
-        <div class="commit-meta">
-          <span class="commit-hash">a3f9c1e</span>
-          <span class="commit-branch">HEAD -&gt; main</span>
+      <li class="acc-item is-open">
+        <button class="acc-trigger" aria-expanded="true">
+          <span class="acc-main">
+            <span class="acc-role">Full Stack Web Developer</span>
+            <span class="acc-org">Forty Degrees Celsius Inc. — Cebu City, Philippines</span>
+          </span>
+          <span class="acc-when">
+            <span class="acc-dates">Sep 2024 — Present</span>
+            <span class="acc-bar"><span class="acc-bar-fill" style="--w:95%"></span></span>
+          </span>
+          <svg class="acc-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="acc-panel">
+          <ul>
+            <li>Contributing to a large-scale CakePHP 2 → Laravel 12 migration, using AI tools to accelerate conversion of modules and business logic while preserving existing behavior.</li>
+            <li>Integrated OpenAI, Claude, and Gemini APIs into production modules — prompt logic, orchestration layer, and data pipelines that automated previously manual workflows.</li>
+            <li>Adopted Spec-Driven Development with GitHub Speckit, and built out Playwright E2E coverage to improve release confidence.</li>
+            <li>Migrated legacy Angular and Vue interfaces to Next.js, and translated Figma designs into production-ready pages.</li>
+          </ul>
         </div>
-        <h3 class="commit-msg">Full Stack Web Developer @ Forty Degrees Celsius Inc.</h3>
-        <p class="commit-sub">Cebu City, Philippines · Sep 2024 — Current</p>
-        <ul class="diff">
-          <li><span class="plus">+</span> Contributing to an ongoing CakePHP-to-Laravel migration on a large codebase, using AI tools to speed up conversion of modules, models, and business logic</li>
-          <li><span class="plus">+</span> Working a CakePHP + Vue.js codebase — features, refactors, bug fixes, and architecture calls when something needs rethinking</li>
-          <li><span class="plus">+</span> Integrated OpenAI, Claude, and Gemini into existing modules — prompt logic, API orchestration layer, and data pipelines that replaced manual work</li>
-          <li><span class="plus">+</span> Adopted Spec Driven Development with GitHub Speckit — specs feed straight into implementation and tests, so less gets lost in translation</li>
-        </ul>
-        <div class="diffstat"><span class="stat-add">+4 modules</span></div>
-      </article>
+      </li>
 
-      <article class="commit" data-reveal>
-        <div class="commit-meta"><span class="commit-hash">7d21b48</span></div>
-        <h3 class="commit-msg">Lead Full-Stack System Developer @ Theomeds Marketing</h3>
-        <p class="commit-sub">Philippines · Oct 2019 — Jul 2024</p>
-        <ul class="diff">
-          <li><span class="plus">+</span> Built a Laravel + FilamentPHP inventory and cash flow system, unifying records that were previously scattered across spreadsheets — schema designed from scratch, rolled out company-wide</li>
-          <li><span class="plus">+</span> Used Power Apps and Power Automate to migrate manual spreadsheet approval workflows into a proper local database</li>
-          <li><span class="plus">+</span> Deployed and managed applications on a Linux VPS (Hostinger) — server setup, deployments, and maintenance via SSH</li>
-          <li><span class="plus">+</span> Mentored junior developers and ran code reviews to hold the line on code quality</li>
-        </ul>
-        <div class="diffstat"><span class="stat-add">+1 system, from scratch</span></div>
-      </article>
+      <li class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-main">
+            <span class="acc-role">Freelance Full-Stack Developer</span>
+            <span class="acc-org">TheoAppSolutions</span>
+          </span>
+          <span class="acc-when">
+            <span class="acc-dates">2024 — Present</span>
+            <span class="acc-bar"><span class="acc-bar-fill" style="--w:95%"></span></span>
+          </span>
+          <svg class="acc-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="acc-panel">
+          <ul>
+            <li>Modernized two school grading platforms — Bethel International School and Highlands Christian Grammar School — upgrading Laravel 6 to Laravel 12 and re-architecting the frontend as headless Next.js.</li>
+          </ul>
+        </div>
+      </li>
 
-      <article class="commit" data-reveal>
-        <div class="commit-meta"><span class="commit-hash">5e88a02</span></div>
-        <h3 class="commit-msg">Lead Full-Stack System Developer @ Highlands Christian Grammar School</h3>
-        <p class="commit-sub">Remote · Jan 2017 — Sep 2019</p>
-        <ul class="diff">
-          <li><span class="plus">+</span> Built the school's grading system in Laravel — grade computation, report card generation, and role-based access for teachers and admins</li>
-          <li><span class="plus">+</span> Maintained and patched the app remotely while the school ran on it, mostly data and permission edge cases</li>
-        </ul>
-        <div class="diffstat"><span class="stat-add">+1 system</span></div>
-      </article>
+      <li class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-main">
+            <span class="acc-role">Lead Full-Stack System Developer</span>
+            <span class="acc-org">Theomeds Marketing — Tacloban City, Philippines</span>
+          </span>
+          <span class="acc-when">
+            <span class="acc-dates">Oct 2019 — Jul 2024</span>
+            <span class="acc-bar"><span class="acc-bar-fill" style="--w:100%"></span></span>
+          </span>
+          <svg class="acc-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="acc-panel">
+          <ul>
+            <li>Designed and built a Laravel + FilamentPHP inventory and cash flow system from scratch, unifying company records that had been scattered across spreadsheets and rolling it out company-wide.</li>
+            <li>Migrated manual, spreadsheet-based approval workflows into Power Apps and Power Automate, removing copy-paste errors between steps.</li>
+            <li>Built an offline-first Flutter app for field reps to log medical coverage, with automatic reconciliation once back online.</li>
+            <li>Deployed and maintained applications on a Hostinger Linux VPS, and mentored junior developers through code review.</li>
+          </ul>
+        </div>
+      </li>
 
-      <article class="commit" data-reveal>
-        <div class="commit-meta"><span class="commit-hash">2c60f7d</span></div>
-        <h3 class="commit-msg">Front-End Web Developer @ Online Freelance Web Design</h3>
-        <p class="commit-sub">Remote · Aug 2017 — Sep 2019</p>
-        <ul class="diff">
-          <li><span class="plus">+</span> Front-end work for e-commerce clients — theme customization, feature builds, and performance fixes on WordPress, Shopify, and WooCommerce</li>
-        </ul>
-        <div class="diffstat"><span class="stat-add">+freelance</span></div>
-      </article>
+      <li class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-main">
+            <span class="acc-role">Front-End Web Developer</span>
+            <span class="acc-org">Online Freelance Web Design — Remote</span>
+          </span>
+          <span class="acc-when">
+            <span class="acc-dates">Aug 2017 — Sep 2019</span>
+            <span class="acc-bar"><span class="acc-bar-fill" style="--w:40%"></span></span>
+          </span>
+          <svg class="acc-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="acc-panel">
+          <ul>
+            <li>Delivered front-end work for e-commerce clients across WordPress, Shopify, and WooCommerce, with a focus on Shopify API and storefront performance.</li>
+            <li>Converted Figma, Zeplin, and Photoshop files into pixel-accurate, responsive pages built with Tailwind CSS and jQuery.</li>
+          </ul>
+        </div>
+      </li>
 
-      <article class="commit" data-reveal>
-        <div class="commit-meta"><span class="commit-hash">9a10c33</span></div>
-        <h3 class="commit-msg">Lead Full-Stack System Developer @ Bethel International School</h3>
-        <p class="commit-sub">Philippines · Jun 2015 — Dec 2016</p>
-        <ul class="diff">
-          <li><span class="plus">+</span> Built a Laravel-based grading system from scratch, replacing a fully manual, paper-based process</li>
-        </ul>
-        <div class="diffstat"><span class="stat-add">+1 system, from scratch</span></div>
-      </article>
+      <li class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-main">
+            <span class="acc-role">Full-Stack System Developer</span>
+            <span class="acc-org">Highlands Christian Grammar School — Remote</span>
+          </span>
+          <span class="acc-when">
+            <span class="acc-dates">Jan 2017 — Sep 2019</span>
+            <span class="acc-bar"><span class="acc-bar-fill" style="--w:52%"></span></span>
+          </span>
+          <svg class="acc-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="acc-panel">
+          <ul>
+            <li>Built a Laravel-based grading system covering grade computation, automated report cards, and multi-role access for teachers and admin staff.</li>
+            <li>Provided ongoing remote support as the school adopted the system, resolving data and permissions issues quickly during grading periods.</li>
+          </ul>
+        </div>
+      </li>
 
-    </div>
+      <li class="acc-item">
+        <button class="acc-trigger" aria-expanded="false">
+          <span class="acc-main">
+            <span class="acc-role">Full-Stack System Developer</span>
+            <span class="acc-org">Bethel International School — Palo, Philippines</span>
+          </span>
+          <span class="acc-when">
+            <span class="acc-dates">Jun 2015 — Dec 2016</span>
+            <span class="acc-bar"><span class="acc-bar-fill" style="--w:32%"></span></span>
+          </span>
+          <svg class="acc-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="acc-panel">
+          <ul>
+            <li>Designed and built a Laravel-based grading and school management system from the ground up as a solo freelance build, replacing a fully paper-based process.</li>
+            <li>Handled grade computation, report generation, and role-based access from initial architecture through launch.</li>
+          </ul>
+        </div>
+      </li>
+
+    </ul>
   </section>
 
-  <!-- SKILLS AS PACKAGE FILE -->
-  <section class="skills-section" id="skills">
-    <div class="section-head">
-      <p class="eyebrow">$ cat stack.json</p>
-      <h2>Dependencies</h2>
+  <section class="block block--wide" id="stack">
+    <div class="block-head">
+      <h2>Stack</h2>
+      <p class="block-hint">Hover a logo, or filter by category</p>
     </div>
 
-    <div class="pkg-window">
-      <div class="terminal-bar">
-        <span class="tdot tdot-r"></span><span class="tdot tdot-y"></span><span class="tdot tdot-g"></span>
-        <span class="terminal-title">stack.json</span>
-      </div>
-      <div class="pkg-body">
-        <p class="pkg-brace">{</p>
-
-        <p class="pkg-key">"backend"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values">PHP, Laravel, CakePHP, CodeIgniter, FilamentPHP, Livewire, Django, Spring Boot, NodeJS</p>
-        <p class="pkg-close">],</p>
-
-        <p class="pkg-key">"frontend"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values">JavaScript, jQuery, TypeScript, Vue.js, Pinia, React, Next.js, Alpine.js</p>
-        <p class="pkg-close">],</p>
-
-        <p class="pkg-key">"styling"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values">Bootstrap, Tailwind CSS, Foundation, Material Design, SASS</p>
-        <p class="pkg-close">],</p>
-
-        <p class="pkg-key">"database"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values">MySQL, PostgreSQL, MongoDB, Firebase, Supabase, NoSQL</p>
-        <p class="pkg-close">],</p>
-
-        <p class="pkg-key">"devops"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values">Docker, Jenkins, PHPUnit, Codeception, GitHub PR Agent, Bitbucket, Jira, Git, GitHub, SSH/CLI</p>
-        <p class="pkg-close">],</p>
-
-        <p class="pkg-key">"mobile"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values">Flutter (Kotlin/Swift)</p>
-        <p class="pkg-close">],</p>
-
-        <p class="pkg-key pkg-key-ai">"ai_llm"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values pkg-values-ai">GitHub Copilot, Claude, Gemini, OpenAI API, Spec Driven Development, Test Driven Development</p>
-        <p class="pkg-close">],</p>
-
-        <p class="pkg-key">"platform"<span class="pkg-colon">:</span> [</p>
-        <p class="pkg-values">MS Power Apps, MS Power BI, MS Power Automate, WordPress, Shopify, WooCommerce, Hostinger VPS</p>
-        <p class="pkg-close">]</p>
-
-        <p class="pkg-brace">}</p>
-      </div>
-    </div>
+    <div class="chip-row" id="chipRow"></div>
+    <div class="logo-grid" id="logoGrid"></div>
   </section>
 
-  <!-- EDUCATION -->
-  <section class="education-section" id="education">
-    <div class="section-head">
-      <p class="eyebrow">$ cat education.log</p>
-      <h2>Education</h2>
+  <section class="block" id="contact">
+    <div class="block-head">
+      <h2>Contact</h2>
     </div>
-    <div class="education-card">
-      <span class="commit-hash">f001a1c</span>
-      <h3>Bachelor of Science in Computer Science</h3>
-      <p class="education-school">ACLC College Tacloban</p>
-    </div>
-  </section>
+    <p class="contact-lead">Open to full-stack roles and freelance projects — especially the kind with a legacy codebase attached.</p>
 
-  <!-- CONTACT -->
-  <section class="contact-section" id="contact">
-    <div class="terminal-window contact-window">
-      <div class="terminal-bar">
-        <span class="tdot tdot-r"></span><span class="tdot tdot-y"></span><span class="tdot tdot-g"></span>
-        <span class="terminal-title">zsh — contact</span>
-      </div>
-      <div class="terminal-body">
-        <p class="term-line"><span class="prompt">$</span> ./contact.sh --open-to-work</p>
-        <p class="term-output">Open to full stack, backend-leaning, and AI-integration roles — remote or Cebu-based.</p>
-        <p class="term-line"><span class="prompt">$</span> echo $EMAIL</p>
-        <p class="term-output"><a class="contact-link" href="mailto:lemueldecastro13@gmail.com">lemueldecastro13@gmail.com</a></p>
-        <p class="term-line"><span class="prompt">$</span> echo $PHONE</p>
-        <p class="term-output"><a class="contact-link" href="tel:+639165126146">+63 916 512 6146</a></p>
-        <p class="term-line"><span class="prompt">$</span> echo $LOCATION</p>
-        <p class="term-output">Cebu City, Cebu, Philippines 6000</p>
-        <p class="term-line"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
+    <div class="contact-grid">
+      <button class="contact-item" id="copyEmail" data-value="lemueldecastro13@gmail.com" type="button">
+        <span class="contact-label">Email <span class="copy-hint">click to copy</span></span>
+        <span class="contact-value">lemueldecastro13@gmail.com</span>
+      </button>
+      <a class="contact-item" href="tel:+639165126146">
+        <span class="contact-label">Phone</span>
+        <span class="contact-value">+63 916 512 6146</span>
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/lemuel-de-castro-a19524194" target="_blank" rel="noopener">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">lemuel-de-castro-a19524194</span>
+      </a>
+      <div class="contact-item contact-item--static">
+        <span class="contact-label">Location</span>
+        <span class="contact-value">Cebu City, Philippines</span>
       </div>
     </div>
   </section>
+
+  <footer class="footer">
+    <p>Lemuel De Castro — Bachelor of Science in Computer Science, ACLC College Tacloban.</p>
+  </footer>
 
 </main>
 
-<footer class="site-footer">
-  <p>Lemuel De Castro · Full Stack Developer · Cebu City, PH</p>
-</footer>
+<div class="toast" id="toast">Copied to clipboard</div>
 
+<script src="icons-data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
