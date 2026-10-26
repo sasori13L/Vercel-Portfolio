@@ -1,0 +1,4 @@
+project_id = "workspace-access-demo"
+
+[db]
+major_version = 17
