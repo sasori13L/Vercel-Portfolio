@@ -198,6 +198,7 @@ export default function HomePage() {
           <ul>
             <li>Deliver detailed takeoffs and BOQs for single-trade packages including partitions, ceilings, doors, painting, carpentry, tiling, roofing, and structural work</li>
             <li>Prepare full BOQs for architectural, structural, civil, and landscaping packages</li>
+            <li>Reviewed and evaluated subcontractor quotations across various trades to ensure competitive pricing, scope compliance, and cost accuracy</li>
             <li>Review drawings, specifications, material schedules, reports, and tender documents to define scope</li>
             <li>Raise RFIs to resolve tender-stage gaps, and clarify inclusions, exclusions, and allowances with clients</li>
             <li>Update BOQs for addenda and scope changes; support lead estimators in completing coordinated estimates to tight deadlines</li>
