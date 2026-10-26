@@ -13,6 +13,6 @@ A responsive, single-page professional portfolio site.
 
 ## Project links
 
-- [Decastro Portfolio](https://decastro-portfolio.vercel.app/)
+- [De Castro Portfolio](https://decastro-portfolio.vercel.app/)
 - [Lorie Jean Portfolio](https://loriejean-portfolio.vercel.app/)
 - [Engineer Lyla Portfolio](https://engineer-lyla-portfolio.vercel.app/)
