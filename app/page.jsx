@@ -2,10 +2,66 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import projects from "./projects.json";
+
+function ProjectGallery({ project, onImageOpen }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const image = project.images[activeIndex];
+  const imageCount = project.images.length;
+  const moveImage = (offset) => {
+    setActiveIndex((current) => (current + offset + imageCount) % imageCount);
+  };
+
+  return (
+    <div className="project-gallery" role="group" aria-label={`${project.title} image gallery`}>
+      <figure className="project-slide">
+        <button
+          className="project-gallery-trigger"
+          type="button"
+          aria-label={`View enlarged image: ${image.caption}`}
+          onClick={(event) => onImageOpen(event.currentTarget, project.images, activeIndex)}
+        >
+          <Image
+            className="project-gallery-image"
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            sizes="(max-width: 820px) 100vw, 60vw"
+          />
+        </button>
+        <figcaption>{image.caption}</figcaption>
+      </figure>
+      <div className="project-slider-controls">
+        <button
+          className="project-slider-button"
+          type="button"
+          aria-label={`Previous image in ${project.title}`}
+          onClick={() => moveImage(-1)}
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+        <span className="project-slider-count" aria-live="polite">
+          {String(activeIndex + 1).padStart(2, "0")} / {String(imageCount).padStart(2, "0")}
+        </span>
+        <button
+          className="project-slider-button"
+          type="button"
+          aria-label={`Next image in ${project.title}`}
+          onClick={() => moveImage(1)}
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeImage, setActiveImage] = useState(null);
+  const [activeGallery, setActiveGallery] = useState(null);
+  const activeImage = activeGallery?.images[activeGallery.index] ?? null;
+  const modalOpen = activeGallery !== null;
   const imageTriggerRef = useRef(null);
   const closeButtonRef = useRef(null);
 
@@ -34,14 +90,14 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (!activeImage) return;
+    if (!modalOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") setActiveImage(null);
+      if (event.key === "Escape") setActiveGallery(null);
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -50,7 +106,15 @@ export default function HomePage() {
       document.body.style.overflow = previousOverflow;
       imageTriggerRef.current?.focus();
     };
-  }, [activeImage]);
+  }, [modalOpen]);
+
+  const moveModalImage = (offset) => {
+    setActiveGallery((current) => {
+      if (!current) return current;
+      const count = current.images.length;
+      return { ...current, index: (current.index + offset + count) % count };
+    });
+  };
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -87,12 +151,12 @@ export default function HomePage() {
       <div className="hero-inner">
         <p className="eyebrow">Dwg. A-01 &middot; Cover Sheet</p>
         <h1>Lyla&nbsp;Chairein&nbsp;Quintana</h1>
-        <p className="hero-role">Construction Estimator &amp; Quantity Surveyor</p>
+        <p className="hero-role">Pre-construction Estimator &amp; Quantity Surveyor</p>
         <p className="hero-lede">
-          Registered Civil Engineer based in Cebu City, focused on accurate takeoffs, clean BOQs, and
-          pricing that holds up under scrutiny — across interior fit-outs and large commercial builds,
-          using Cubit, PlanSwift, and CostX. Looking to take on more responsibility with an established
-          estimating firm.
+          Detail-driven Registered Civil Engineer in Cebu City, experienced in reading drawings,
+          scoping projects, and preparing accurate takeoffs and BOQs for interior fit-outs through large
+          commercial builds. Experienced with Cubit, PlanSwift, CostX, and AutoCAD, and ready to take on
+          greater responsibility in pre-construction.
         </p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#experience">View the site log</a>
@@ -117,7 +181,7 @@ export default function HomePage() {
     <div className="section-head">
       <p className="eyebrow">Dwg. A-02 &middot; Site Log</p>
       <h2>Every entry, accounted for</h2>
-      <p className="section-lede">From a virtual internship pricing precast structures to running estimates for an Australian-owned firm — the throughline is accuracy you can build on.</p>
+      <p className="section-lede">Tender documentation, scope reviews, quantity takeoffs, and BOQs across single-trade and multi-disciplinary construction packages.</p>
     </div>
 
     <div className="ledger">
@@ -130,11 +194,13 @@ export default function HomePage() {
         <div className="ledger-line" aria-hidden="true"><span className="ledger-node"></span></div>
         <div className="ledger-card blueprint-frame">
           <h3>Construction Estimator / Quantity Surveyor</h3>
-          <p className="ledger-company">TL Construction — Cebu City, Cebu</p>
+          <p className="ledger-company">Costimate — Remote · Cebu City, Cebu</p>
           <ul>
-            <li>Perform cost estimation across a range of construction projects, from interior fit-outs to full commercial building builds</li>
-            <li>Work in industry-standard estimating software to produce accurate takeoffs and pricing</li>
-            <li>Contribute to the growth of an Australian-owned estimating firm serving clients worldwide</li>
+            <li>Deliver detailed takeoffs and BOQs for single-trade packages including partitions, ceilings, doors, painting, carpentry, tiling, roofing, and structural work</li>
+            <li>Prepare full BOQs for architectural, structural, civil, and landscaping packages</li>
+            <li>Review drawings, specifications, material schedules, reports, and tender documents to define scope</li>
+            <li>Raise RFIs to resolve tender-stage gaps, and clarify inclusions, exclusions, and allowances with clients</li>
+            <li>Update BOQs for addenda and scope changes; support lead estimators in completing coordinated estimates to tight deadlines</li>
           </ul>
         </div>
       </article>
@@ -148,9 +214,9 @@ export default function HomePage() {
           <h3>Intern Solution Engineer</h3>
           <p className="ledger-company">TecSurge — Cebu Business Park</p>
           <ul>
-            <li>Completed a rotational internship within the Material Management department</li>
-            <li>Collaborated on real-world projects under senior guidance</li>
-            <li>Developed technical skills in engineering applications and effective team communication</li>
+            <li>Managed piping specification and catalog data for real-world projects under project leads</li>
+            <li>Provided system support and quality checks for data entries</li>
+            <li>Maintained clear communication with the project team</li>
           </ul>
         </div>
       </article>
@@ -164,7 +230,7 @@ export default function HomePage() {
           <h3>Civil Engineer Intern</h3>
           <p className="ledger-company">PICE eVISMA — PICE Qatar</p>
           <ul>
-            <li>Estimated quantities and costs for precast structures</li>
+            <li>Estimated precast structures and used AutoCAD for design work</li>
           </ul>
         </div>
       </article>
@@ -176,135 +242,29 @@ export default function HomePage() {
   <section className="projects-section" id="projects">
     <div className="section-head">
       <p className="eyebrow">Dwg. A-03 &middot; Field File</p>
-      <h2>Sample projects</h2>
-      <p className="section-lede">Selected drawing sheets and quantity takeoff work.</p>
+      <h2>Selected projects</h2>
+      <p className="section-lede">Cost planning, quantity takeoffs and drawing sets across public, education and commercial projects.</p>
     </div>
     <div className="projects-grid">
-
-      <article className="project-card project-card-featured blueprint-frame">
-        <div className="project-gallery">
-          <figure className="project-gallery-item">
-            <button
-              className="project-gallery-trigger"
-              type="button"
-              aria-label="View enlarged image: First floor finishes plan and reflected ceiling plan"
-              onClick={(event) => {
-                imageTriggerRef.current = event.currentTarget;
-                setActiveImage({
-                  src: "/projects/first-floor-finishes.webp",
-                  alt: "First floor finishes plan and reflected ceiling plan with quantity takeoff legend",
-                  caption: "First floor · finishes and reflected ceiling plan",
-                  width: 876,
-                  height: 698,
-                });
-              }}
-            >
-              <Image
-                className="project-gallery-image"
-                src="/projects/first-floor-finishes.webp"
-                alt="First floor finishes plan and reflected ceiling plan with quantity takeoff legend"
-                width={876}
-                height={698}
-              />
-            </button>
-            <figcaption>First floor · finishes and reflected ceiling plan</figcaption>
-          </figure>
-          <figure className="project-gallery-item">
-            <button
-              className="project-gallery-trigger"
-              type="button"
-              aria-label="View enlarged image: Ground floor finishes plan and reflected ceiling plan"
-              onClick={(event) => {
-                imageTriggerRef.current = event.currentTarget;
-                setActiveImage({
-                  src: "/projects/ground-floor-finishes.webp",
-                  alt: "Ground floor finishes plan and reflected ceiling plan with quantity takeoff legend",
-                  caption: "Ground floor · finishes and reflected ceiling plan",
-                  width: 892,
-                  height: 719,
-                });
-              }}
-            >
-              <Image
-                className="project-gallery-image"
-                src="/projects/ground-floor-finishes.webp"
-                alt="Ground floor finishes plan and reflected ceiling plan with quantity takeoff legend"
-                width={892}
-                height={719}
-              />
-            </button>
-            <figcaption>Ground floor · finishes and reflected ceiling plan</figcaption>
-          </figure>
-          <figure className="project-gallery-item">
-            <button
-              className="project-gallery-trigger"
-              type="button"
-              aria-label="View enlarged image: Architectural exterior elevations"
-              onClick={(event) => {
-                imageTriggerRef.current = event.currentTarget;
-                setActiveImage({
-                  src: "/projects/exterior-elevations.webp",
-                  alt: "Architectural exterior elevations with cladding quantity takeoff legend",
-                  caption: "Exterior elevations · cladding takeoff",
-                  width: 1023,
-                  height: 715,
-                });
-              }}
-            >
-              <Image
-                className="project-gallery-image"
-                src="/projects/exterior-elevations.webp"
-                alt="Architectural exterior elevations with cladding quantity takeoff legend"
-                width={1023}
-                height={715}
-              />
-            </button>
-            <figcaption>Exterior elevations · cladding takeoff</figcaption>
-          </figure>
-        </div>
-        <div className="project-body">
-          <h3>Floor Plans &amp; Elevations — Quantity Takeoff</h3>
-          <p className="project-meta">Architectural drawings · Finishes, ceilings &amp; cladding</p>
-          <p>Selected sheets showing floor finish and reflected ceiling plans alongside exterior elevations, each with measured quantities.</p>
-        </div>
-      </article>
-
-      <article className="project-card blueprint-frame">
-        <div className="project-thumb placeholder-thumb" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="1"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <path d="M21 15l-5-5L5 21"></path>
-          </svg>
-          <span>Image coming soon</span>
-        </div>
-        <div className="project-body">
-          <h3>Commercial Building — Cost Estimation</h3>
-          <p className="project-meta">Commercial build · Australia (remote)</p>
-          <p>Full-building cost estimate prepared for an Australian client using industry-standard estimating software. Details and photos to be added.</p>
-        </div>
-      </article>
-
-      <article className="project-card blueprint-frame">
-        <div className="project-thumb placeholder-thumb" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="1"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <path d="M21 15l-5-5L5 21"></path>
-          </svg>
-          <span>Image coming soon</span>
-        </div>
-        <div className="project-body">
-          <h3>Precast Structures — Estimation</h3>
-          <p className="project-meta">Precast concrete · PICE eVISMA, Qatar</p>
-          <p>Estimation of precast structural elements completed during a virtual internship. Details and photos to be added.</p>
-        </div>
-      </article>
-
+      {projects.map((project) => (
+        <article className="project-card blueprint-frame" key={project.id}>
+          <ProjectGallery
+            project={project}
+            onImageOpen={(trigger, images, index) => {
+              imageTriggerRef.current = trigger;
+              setActiveGallery({ images, index });
+            }}
+          />
+          <div className="project-body">
+            <h3>{project.title}</h3>
+            <p className="project-meta">{project.meta}</p>
+            <p>{project.description}</p>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
-  
   <section className="skills-section" id="skills">
     <div className="section-head">
       <p className="eyebrow">Dwg. A-04 &middot; Specification</p>
@@ -315,14 +275,13 @@ export default function HomePage() {
       <span className="skill-chip">Cost Estimation</span>
       <span className="skill-chip">BOQ Preparation</span>
       <span className="skill-chip">Construction Drawing Interpretation</span>
-      <span className="skill-chip">Civil, Structural &amp; Architectural Works</span>
+      <span className="skill-chip">Civil, Structural, Architectural &amp; Landscaping Works</span>
       <span className="skill-chip">Attention to Detail &amp; Accuracy</span>
       <span className="skill-chip">Team Collaboration</span>
       <span className="skill-chip">Time Management &amp; Deadlines</span>
     </div>
   </section>
 
-  
   <section className="tools-section" id="tools">
     <div className="section-head">
       <p className="eyebrow">Dwg. A-05 &middot; Instrument Panel</p>
@@ -332,6 +291,7 @@ export default function HomePage() {
       <div className="tool-card blueprint-frame"><Image className="tool-logo" src="/images/cubit-estimating.svg" alt="Cubit Estimating logo" width={459} height={59} /><span className="tool-name">Cubit Estimating</span><p className="tool-description">Quantity takeoff and construction cost estimating.</p></div>
       <div className="tool-card blueprint-frame"><Image className="tool-logo" src="/images/planswift.webp" alt="PlanSwift logo" width={1496} height={301} /><span className="tool-name">PlanSwift</span><p className="tool-description">Digital takeoff and estimating from project plans.</p></div>
       <div className="tool-card blueprint-frame"><Image className="tool-logo tool-logo-costx" src="/images/costx-logo.jpg" alt="RIB CostX logo" width={1920} height={1080} /><span className="tool-name">CostX</span><p className="tool-description">2D and BIM takeoff with cost estimating.</p></div>
+      <div className="tool-card blueprint-frame"><span className="tool-mark" aria-hidden="true">CAD</span><span className="tool-name">AutoCAD</span><p className="tool-description">Design work during civil engineering internship.</p></div>
     </div>
   </section>
 
@@ -365,7 +325,6 @@ export default function HomePage() {
         <a className="contact-link" href="mailto:quintanalyla@gmail.com">quintanalyla@gmail.com</a>
         <span className="contact-link" style={{ borderBottom: "none" }}>Cebu City, Philippines</span>
       </div>
-      <p className="references-note">References available on request.</p>
     </div>
   </section>
 
@@ -388,7 +347,7 @@ export default function HomePage() {
   <div
     className="image-modal-backdrop"
     onClick={(event) => {
-      if (event.target === event.currentTarget) setActiveImage(null);
+      if (event.target === event.currentTarget) setActiveGallery(null);
     }}
   >
     <div
@@ -397,9 +356,21 @@ export default function HomePage() {
       aria-modal="true"
       aria-labelledby="image-modal-caption"
       onKeyDown={(event) => {
-        if (event.key === "Tab") {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
           event.preventDefault();
-          closeButtonRef.current?.focus();
+          moveModalImage(event.key === "ArrowRight" ? 1 : -1);
+        }
+        if (event.key === "Tab") {
+          const buttons = event.currentTarget.querySelectorAll("button:not([disabled])");
+          const firstButton = buttons[0];
+          const lastButton = buttons[buttons.length - 1];
+          if (event.shiftKey && document.activeElement === firstButton) {
+            event.preventDefault();
+            lastButton?.focus();
+          } else if (!event.shiftKey && document.activeElement === lastButton) {
+            event.preventDefault();
+            firstButton?.focus();
+          }
         }
       }}
     >
@@ -408,19 +379,42 @@ export default function HomePage() {
         className="image-modal-close"
         type="button"
         aria-label="Close enlarged image"
-        onClick={() => setActiveImage(null)}
+        onClick={() => setActiveGallery(null)}
       >
         <span aria-hidden="true">&times;</span>
       </button>
-      <Image
-        className="image-modal-image"
-        src={activeImage.src}
-        alt={activeImage.alt}
-        width={activeImage.width}
-        height={activeImage.height}
-        sizes="(max-width: 900px) 96vw, 1100px"
-      />
-      <p className="image-modal-caption" id="image-modal-caption">{activeImage.caption}</p>
+      <div className="image-modal-viewer">
+        <button
+          className="image-modal-nav image-modal-nav-previous"
+          type="button"
+          aria-label="View previous image"
+          onClick={() => moveModalImage(-1)}
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+        <Image
+          className="image-modal-image"
+          src={activeImage.src}
+          alt={activeImage.alt}
+          width={activeImage.width}
+          height={activeImage.height}
+          sizes="(max-width: 900px) 96vw, 1100px"
+        />
+        <button
+          className="image-modal-nav image-modal-nav-next"
+          type="button"
+          aria-label="View next image"
+          onClick={() => moveModalImage(1)}
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <div className="image-modal-footer">
+        <p className="image-modal-caption" id="image-modal-caption">{activeImage.caption}</p>
+        <span className="image-modal-count" aria-live="polite">
+          {String(activeGallery.index + 1).padStart(2, "0")} / {String(activeGallery.images.length).padStart(2, "0")}
+        </span>
+      </div>
     </div>
   </div>
 )}

@@ -1,9 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Lyla Chairein Quintana — Portfolio",
+  title: "Lyla Chairein Quintana — Pre-construction Estimator & Quantity Surveyor",
   description:
-    "Portfolio of Lyla Chairein Quintana, Registered Civil Engineer, Construction Estimator and Quantity Surveyor based in Cebu City.",
+    "Portfolio of Lyla Chairein Quintana, Registered Civil Engineer and Pre-construction Estimator / Quantity Surveyor in Cebu City, Philippines.",
 };
 
 export default function RootLayout({ children }) {
