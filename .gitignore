@@ -3,3 +3,8 @@ node_modules/
 out/
 *.tsbuildinfo
 .DS_Store
+demos/workspace-access/node_modules/
+demos/workspace-access/.vercel/
+demos/workspace-access/.env
+demos/workspace-access/.env.*
+!demos/workspace-access/.env.example

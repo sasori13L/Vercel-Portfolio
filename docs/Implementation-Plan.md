@@ -4,7 +4,7 @@ This plan turns the requirements in [the product specification](./workspace-acce
 
 ## 1. Implementation decisions
 
-- **Keep the existing portfolio intact.** The repository root is currently a Next.js portfolio, while the spec calls for React, TypeScript, Vite, and Tailwind. Build the demo as a standalone app under `demos/workspace-access/`, with its own `package.json`, Vite config, TypeScript config, and Tailwind setup. Configure a separate Vercel project with that directory as its root. This preserves the required Vite stack without changing the portfolio's root build.
+- **Keep the existing portfolio intact.** Build the demo as a standalone Next.js App Router app under `demos/workspace-access/`, with its own `package.json`, Next.js config, TypeScript config, and Tailwind setup. Configure a separate Vercel project with that directory as its root. The demo can use Next.js routing and deployment conventions without changing the portfolio's root build.
 - **Use Supabase Auth plus direct, authenticated Supabase client calls.** RLS is the authorization boundary for all tenant records.
 - **Use two fictional organizations and at least two demo users.** Each user should belong to one organization for the initial demo; keep the schema capable of supporting multiple memberships.
 - **Provision memberships outside the browser.** Public sign-up must not grant organization membership. Create demo Auth users in Supabase and associate their IDs with memberships through a documented trusted setup step.
@@ -14,17 +14,17 @@ This plan turns the requirements in [the product specification](./workspace-acce
 
 ### Tasks
 
-1. Create `demos/workspace-access/` as an independent Vite + React + TypeScript app.
+1. Create `demos/workspace-access/` as an independent Next.js App Router + React + TypeScript app.
 2. Add Tailwind and establish a small set of reusable layout, form, button, badge, and panel styles.
-3. Add `.env.example` with only client-side variable names, such as `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`; include no real credentials.
+3. Add `.env.example` with only client-side variable names, such as `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`; include no real credentials.
 4. Add an app README or link it to the root README, explaining the app's independent setup.
-5. Create a separate Vercel project rooted at `demos/workspace-access/`; configure the expected build and output settings.
+5. Create a separate Vercel project rooted at `demos/workspace-access/`; use the Next.js preset and its detected build/output settings.
 
 ### Exit criteria
 
 - The demo runs independently from its directory.
 - The existing portfolio's dependencies and root scripts remain unchanged.
-- A Vercel preview can build the standalone demo without deploying the portfolio as the demo.
+- A Vercel preview can build the standalone Next.js demo without deploying the portfolio as the demo.
 
 ## 3. Phase 1 — Supabase schema, seed setup, and RLS
 
@@ -52,12 +52,12 @@ This plan turns the requirements in [the product specification](./workspace-acce
 
 ### Tasks
 
-1. Add a typed Supabase client initialized from the Vite environment variables.
+1. Add a typed Supabase browser client initialized from the `NEXT_PUBLIC_` environment variables.
 2. Add auth state handling for initial session load, sign-in, sign-out, and expired sessions.
 3. Build the signed-out screen with a short explanation and validated email/password form.
 4. Build an authenticated shell showing the user's email, active organization, and sign-out action.
 5. Load organization memberships through the authenticated client; handle no-membership and multiple-membership states explicitly.
-6. Keep all privileged configuration out of the client. The Vite bundle may contain the Supabase URL and anon key only.
+6. Keep all privileged configuration out of the client. The browser bundle may contain the Supabase URL and anon key only.
 
 ### Exit criteria
 
@@ -146,7 +146,7 @@ Run these checks using real authenticated sessions for each demo user, not only 
 
 ## 10. Main implementation risks
 
-- **Stack mismatch with repository root:** isolate Vite in a subdirectory and deploy it as a separate Vercel project; do not convert the portfolio root as part of this demo.
+- **Portfolio/demo separation:** isolate the Next.js demo in a subdirectory and deploy it as a separate Vercel project; do not merge it into the portfolio root app as part of this demo.
 - **Membership bootstrap:** migrations cannot safely assume Auth user IDs. Create demo Auth users first, then provision memberships through the documented trusted step.
 - **RLS policy gaps:** test each operation independently; a correct `SELECT` rule does not automatically secure writes.
 - **Public demo writes:** public credentials make the demo easy to inspect but allow users to modify their own tenant's sample data. Use synthetic data and decide whether public writes or read-only access best fits the portfolio.
@@ -154,4 +154,4 @@ Run these checks using real authenticated sessions for each demo user, not only 
 
 ## 11. Definition of done
 
-The demo is done when every acceptance criterion in the product spec is implemented or has a documented verification step, both tenant accounts can use the deployed app, cross-tenant reads and writes are blocked by RLS, and the standalone Vite demo and existing portfolio can be deployed independently.
+The demo is done when every acceptance criterion in the product spec is implemented or has a documented verification step, both tenant accounts can use the deployed app, cross-tenant reads and writes are blocked by RLS, and the standalone Next.js demo and existing portfolio can be deployed independently.

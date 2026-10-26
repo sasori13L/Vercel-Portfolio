@@ -8,7 +8,7 @@ This is a portfolio demo, not a production project-management product. Use ficti
 
 ## 2. Goals
 
-- Demonstrate a working React, TypeScript, and Vite application deployed to Vercel.
+- Demonstrate a working Next.js App Router, React, and TypeScript application deployed to Vercel.
 - Demonstrate Supabase authentication and organization membership.
 - Enforce task access with RLS for read and write operations.
 - Make cross-organization denial easy to understand and demonstrate.
@@ -134,10 +134,10 @@ Add an index on `tasks.organization_id` and an index on `memberships.user_id`. A
 
 ## 10. Technical approach
 
-- **Frontend:** React, TypeScript, Vite, Tailwind CSS.
+- **Frontend:** Next.js App Router, React, TypeScript, Tailwind CSS.
 - **Backend:** Supabase Auth and Postgres; direct client access with RLS for the demo.
-- **Hosting:** Vercel static deployment.
-- **Configuration:** Vercel client variables for Supabase project URL and anon/publishable key. These are public client configuration and must be protected by RLS. Never configure the service-role key in client-exposed variables.
+- **Hosting:** Vercel deployment using the Next.js framework preset.
+- **Configuration:** Next.js public client variables (`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`) for the Supabase project URL and anon/publishable key. These are public client configuration and must be protected by RLS. Never configure the service-role key in client-exposed variables.
 - **Database setup:** checked-in SQL migration(s) for tables, indexes, constraints, grants, and policies; seed fictional organizations and tasks through a documented trusted setup step.
 
 ## 11. Acceptance criteria

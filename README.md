@@ -16,3 +16,7 @@ A responsive, single-page professional portfolio site.
 - [De Castro Portfolio](https://decastro-portfolio.vercel.app/)
 - [Lorie Jean Portfolio](https://loriejean-portfolio.vercel.app/)
 - [Engineer Lyla Portfolio](https://engineer-lyla-portfolio.vercel.app/)
+
+## Workspace Access Demo
+
+The multi-tenant task dashboard is a separate Next.js application. See the [demo setup guide](demos/workspace-access/README.md) for local setup, Supabase migrations, and Vercel configuration.
