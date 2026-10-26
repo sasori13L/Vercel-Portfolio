@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
 import type { TaskStatus } from '../database.types'
 import { hasSupabaseConfig, supabase } from '../supabase'
+import SecurityDemo from './security-demo'
 
 type Organization = { id: string; name: string }
 type Task = {
@@ -582,10 +583,12 @@ function WorkspaceScreen(props: {
                 ) : null}
               </div>
             </section>
-            <section className="security-note" aria-label="Data access note">
-              <span className="security-lock" aria-hidden="true">⌑</span>
-              <div><strong>Scoped by your membership.</strong><span>Organization data is filtered and protected by PostgreSQL Row Level Security.</span></div>
-            </section>
+            <SecurityDemo
+              key={`${props.user.id}:${props.selectedOrganization.id}`}
+              organizationId={props.selectedOrganization.id}
+              organizationIds={props.organizations.map((organization) => organization.id)}
+              userId={props.user.id}
+            />
           </>
         ) : null}
         <Footer />

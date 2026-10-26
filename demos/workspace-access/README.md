@@ -35,6 +35,24 @@ The app loads membership and organization rows with the signed-in Supabase clien
 
 All sample content is fictional. The demo users can change task data in their own organizations once CRUD is implemented. Do not store sensitive data in this project.
 
+## Tenant isolation demonstration
+
+The **Security demo** panel requests only the `id` of the known seeded task in the other sample organization, using the currently signed-in browser session. A blocked result means the query returned no row, consistent with the RLS policy. A returned row is reported as an unexpected access failure; the app discards it and never requests or displays its title or description. A request error is inconclusive and is not shown as a pass. A no-row result assumes `supabase/seed-demo-data.sql` has been applied. The check is unavailable if the signed-in account already has access to both sample organizations or is using an organization outside the two seeded examples.
+
+For repeatable verification, use real authenticated sessions for the demo users. Do not run these checks as the database owner, whose access bypasses the browser authorization path.
+
+| Scenario | Expected result |
+| --- | --- |
+| Signed-out or `anon` client reads organizations, memberships, or tasks | Denied by table grants or returns no tenant rows |
+| `anon` client attempts tenant-table mutations | Denied by table grants |
+| Northstar Studio user requests the known Cedar Works task ID | No row; the Security demo reports blocked |
+| Cedar Works user requests the known Northstar Studio task ID | No row; the Security demo reports blocked |
+| Member inserts a task into an organization where they have no membership | Denied by RLS |
+| Member tries to update or delete another organization's task | No row is changed; RLS filters or denies the operation |
+| Member tries to change a task's `organization_id` or `created_by` | Denied by column privileges |
+| Browser client attempts to insert, update, or delete a membership | Denied by table grants and absence of write policies |
+| Member performs task CRUD in their own organization | Allowed by the task policies |
+
 ## Vercel setup
 
 Create a separate Vercel project connected to this repository and set its **Root Directory** to `demos/workspace-access`. Choose the Next.js framework preset, or let Vercel detect it; Vercel supplies the Next.js build and output defaults. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` as environment variables for each deployment environment. Do not add `SUPABASE_SERVICE_ROLE_KEY`.
