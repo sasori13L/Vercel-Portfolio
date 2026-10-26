@@ -1,35 +1,23 @@
 # Lorie Jean Estrera De Castro — Portfolio
 
-A static one-page portfolio site (plain HTML/CSS/JS, no build step) built from Lorie Jean Estrera De Castro's resume.
+A one-page portfolio built with Next.js App Router, React, and TypeScript. The original employment-ledger design, responsive navigation, tools preview, and scroll reveal are preserved.
 
-## Files
-- `index.html` — page content
-- `style.css` — design system ("employment ledger" theme)
-- `script.js` — mobile nav + scroll-reveal animation
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:3000.
 
 ## Deploy to Vercel
 
-### Option A — push to your existing GitHub repo, then import
-```bash
-git init
-git remote add origin https://github.com/sasori13L/lorie-jean-portfolio.git
-git add .
-git commit -m "Initial portfolio site"
-git branch -M main
-git push -u origin main
-```
-Then in Vercel: **Add New → Project → Import** the `lorie-jean-portfolio` repo.
-Framework preset: **Other** (static site) — no build command, no output directory needed.
-Click **Deploy**.
+Import this repository into Vercel. Vercel detects Next.js and configures the build automatically.
 
-### Option B — deploy directly from this folder with Vercel CLI
-```bash
-npm i -g vercel
-cd path/to/this/folder
-vercel
-```
-Follow the prompts (link/create project, accept defaults) and it will give you a live URL.
+## Project structure
 
-## Editing later
-- Update text directly in `index.html`.
-- Colors, type, and spacing are all defined as CSS variables at the top of `style.css` under `:root`.
+- `app/page.tsx` — portfolio page and interactive behavior
+- `app/layout.tsx` — document metadata, font links, and global stylesheet import
+- `app/globals.css` — portfolio design system and responsive styles
+- `public/images/` — local WebP screenshots used in the tools preview
