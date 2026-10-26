@@ -31,6 +31,19 @@ The initial migration creates `organizations`, `memberships`, and `tasks`, adds 
 
 Table grants further restrict access: `anon` receives no table privileges, memberships are read-only to authenticated clients, and task clients may insert only the organization/title/description/status columns and update only title/description/status. This prevents a browser request from changing `organization_id` or `created_by`, even for a task the user can otherwise edit. No public membership write policy is defined.
 
+The migration's policies have these individual purposes:
+
+| Policy | Purpose |
+| --- | --- |
+| `Members can read their organizations` | Organization SELECT is allowed only when `auth.uid()` has a matching membership. |
+| `Users can read their own memberships` | Membership SELECT returns only the signed-in user's membership rows; no client write policies exist. |
+| `Members can read tasks in their organizations` | Task SELECT is limited to organizations with a membership for the current user. |
+| `Members can create tasks as themselves` | Task INSERT requires both membership in the target organization and `created_by = auth.uid()`. |
+| `Members can update tasks in their organizations` | Task UPDATE checks membership on both the existing and resulting row; column grants also prevent changing organization or creator. |
+| `Members can delete tasks in their organizations` | Task DELETE is allowed only for a task in an organization where the user is a member. |
+
+The demo intentionally permits authenticated members to change task data in their own organization. There is no public sign-up or membership provisioning flow in the app. If reviewer credentials are shared publicly, anyone using them can change that organization's sample tasks; use synthetic content and reset or reprovision the sample data when needed.
+
 The app loads membership and organization rows with the signed-in Supabase client. Task queries are scoped to the selected organization for clarity, while RLS remains the database authorization boundary. New task writes derive their organization from the active membership, omit `created_by` so the database default supplies the session identity, and show neutral errors if a request is denied.
 
 All sample content is fictional. The demo users can change task data in their own organizations once CRUD is implemented. Do not store sensitive data in this project.
@@ -39,24 +52,61 @@ All sample content is fictional. The demo users can change task data in their ow
 
 The **Security demo** panel requests only the `id` of the known seeded task in the other sample organization, using the currently signed-in browser session. A blocked result means the query returned no row, consistent with the RLS policy. A returned row is reported as an unexpected access failure; the app discards it and never requests or displays its title or description. A request error is inconclusive and is not shown as a pass. A no-row result assumes `supabase/seed-demo-data.sql` has been applied. The check is unavailable if the signed-in account already has access to both sample organizations or is using an organization outside the two seeded examples.
 
-For repeatable verification, use real authenticated sessions for the demo users. Do not run these checks as the database owner, whose access bypasses the browser authorization path.
-
-| Scenario | Expected result |
-| --- | --- |
-| Signed-out or `anon` client reads organizations, memberships, or tasks | Denied by table grants or returns no tenant rows |
-| `anon` client attempts tenant-table mutations | Denied by table grants |
-| Northstar Studio user requests the known Cedar Works task ID | No row; the Security demo reports blocked |
-| Cedar Works user requests the known Northstar Studio task ID | No row; the Security demo reports blocked |
-| Member inserts a task into an organization where they have no membership | Denied by RLS |
-| Member tries to update or delete another organization's task | No row is changed; RLS filters or denies the operation |
-| Member tries to change a task's `organization_id` or `created_by` | Denied by column privileges |
-| Browser client attempts to insert, update, or delete a membership | Denied by table grants and absence of write policies |
-| Member performs task CRUD in their own organization | Allowed by the task policies |
+For repeatable verification, use real authenticated sessions for the demo users. Do not run these checks as the database owner, whose access bypasses the browser authorization path. See the verification scenarios below for the expected result of each operation.
 
 ## Vercel setup
 
 Create a separate Vercel project connected to this repository and set its **Root Directory** to `demos/workspace-access`. Choose the Next.js framework preset, or let Vercel detect it; Vercel supplies the Next.js build and output defaults. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` as environment variables for each deployment environment. Do not add `SUPABASE_SERVICE_ROLE_KEY`.
 
+For a preview release, connect the repository to Vercel, select the demo directory as the project root, add the two public Supabase variables to Preview, and deploy a branch preview. After deployment, follow the reviewer checklist below with both provisioned accounts and confirm that the isolation check reports **Blocked as expected** for each account. Configure Production variables and promote or deploy to Production only after the preview passes. Keep demo passwords in a private credential-sharing channel; do not put them in Git, this README, Vercel variables, or the browser bundle. If the project is intentionally private, give reviewers access to the Vercel deployment and credentials through the appropriate private channels.
+
+### Acceptance checklist
+
+The table maps the product specification's acceptance criteria to the implementation and the final review procedure. The browser and database checks must use real signed-in demo sessions; SQL Editor/database-owner access does not verify the client authorization boundary.
+
+| Acceptance criterion | Implementation | Release verification |
+| --- | --- | --- |
+| Each account sees only its authorized organization and tasks | Membership and task loading in `src/app/page.tsx`; RLS in `supabase/migrations/202610260001_initial_workspace_schema.sql` | Sign in as each account and confirm the organization name and task list match its membership. |
+| Foreign task reads are blocked | Task SELECT policy in the migration; known IDs in `supabase/seed-demo-data.sql`; check in `src/app/security-demo.tsx` | Run the Security demo once as each account; expect **Blocked as expected**. A request error is inconclusive. |
+| Foreign task inserts, updates, reassignment, and deletes are blocked | Task INSERT/UPDATE/DELETE policies and column grants in the migration | Use the verification scenarios below with authenticated client sessions; verify no foreign row is changed. |
+| Signed-out and anonymous access is denied | Explicit table grants and RLS in the migration; session-gated UI in `src/app/page.tsx` | Sign out, then verify tenant tables return no rows or deny writes from an anon client. |
+| Authorized task create, edit, complete/reopen, and delete work | Task form and actions in `src/app/page.tsx` | Exercise each action while signed in and confirm summaries and filters update. |
+| Browser clients cannot mutate memberships | Membership SELECT-only grant and no membership write policy in the migration | Attempt membership insert/update/delete with an authenticated client; expect a permission or policy denial. |
+| Loading, empty, validation, and denied/error states are clear | State handling in `src/app/page.tsx`; security result states in `src/app/security-demo.tsx` | Check setup without env values, an account without membership, an empty task list, a blank title, and a failed request. |
+| Deployment uses public client configuration only | `.env.example`; Vercel setup above | Inspect Vercel environment variables and built client output; confirm no service-role key is configured or bundled. |
+| Reviewer can understand and reproduce setup | This README, migration, and seed script | Follow Local app setup and Supabase schema and sample data from a clean project. |
+| Portfolio and demo deploy independently | Root portfolio and `demos/workspace-access/` standalone app | Confirm the portfolio's root Vercel project remains rooted at the repository root and the demo project uses `demos/workspace-access`. |
+
+### Release record
+
+Complete this record in the project handoff after deploying; do not mark a release ready based on a successful build alone.
+
+| Item | Release value |
+| --- | --- |
+| Vercel preview URL | Pending Vercel project setup |
+| Supabase project configured | Pending project owner setup |
+| Northstar reviewer account verified | Pending private credentials and preview verification |
+| Cedar Works reviewer account verified | Pending private credentials and preview verification |
+| Cross-tenant check passes for both accounts | Pending deployed verification |
+| Production URL | Pending preview approval and production deployment |
+
+The repository does not contain Supabase project credentials, reviewer passwords, or Vercel deployment credentials. Those external setup steps must be completed by the project owner before the release record can be marked complete.
+
 ## Limitations
 
 This is a focused RLS demonstration, not a security audit or production task-management system. Reviewer accounts and sample tasks are mutable demo data. Keep the Supabase project limited to synthetic content and review the policies whenever the schema or browser operations change.
+
+## Verification scenarios
+
+Run these as each authenticated reviewer using the browser client or Supabase SQL/API tools configured with that user's access token. Use the same project and public anon key as the app, and never use a service-role key for an authorization check.
+
+| Attempt | Expected result |
+| --- | --- |
+| Select a task by the other organization's known ID | No row returned; the Security demo reports blocked. |
+| Insert a task with the other organization's `organization_id` | Denied by task INSERT policy because the user has no target-organization membership. |
+| Update a task in the other organization | No row changed or returned. |
+| Change `organization_id` or `created_by` on an accessible task | Denied because the browser role has no column-level update grant for either field. |
+| Delete a task in the other organization | No row deleted or operation denied. |
+| Read or mutate organizations, memberships, or tasks as `anon` | No tenant rows returned; mutations denied by grants. |
+| Insert, update, or delete a membership as an authenticated user | Denied by grants; no write policy is defined. |
+| Perform normal task CRUD in the user's organization | Allowed, with the list and summary counts reflecting the change. |

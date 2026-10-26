@@ -353,7 +353,7 @@ function ConfigurationNotice() {
       <section className="panel auth-card" aria-labelledby="config-heading">
         <p className="eyebrow">Setup required</p>
         <h1 id="config-heading" className="auth-title">Connect the demo workspace.</h1>
-        <p className="body-copy">Add your Supabase project URL and anon or publishable key to <code>.env</code>, then restart the development server.</p>
+        <p className="body-copy">Add your Supabase project URL and anon or publishable key to <code>.env.local</code>, then restart the development server.</p>
         <p className="small-note">Use the values in Supabase project settings. Keep service-role keys out of browser configuration.</p>
       </section>
     </main>
