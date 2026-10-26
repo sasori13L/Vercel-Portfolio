@@ -75,7 +75,7 @@ export default function Home() {
 
   return <>
     <header className={styles.nav}>
-      <a href="#top" className={styles.brand}><span className={styles.brandDot} />Lemuel De Castro</a>
+      <a href="#top" className={styles.brand}><Image className={styles.brandLogo} src="/logo.svg" alt="" width={32} height={32} priority />Lemuel De Castro</a>
       <nav aria-label="Primary navigation">{commands.map(([name, href]) => <a key={href} href={href}>{name}</a>)}</nav>
       <div className={styles.navRight}><button className={styles.jump} onClick={() => setPaletteOpen(true)}>Jump to <kbd>/</kbd></button><a className={styles.navCta} href="mailto:lemueldecastro13@gmail.com">Let&apos;s talk <span>↗</span></a></div>
     </header>

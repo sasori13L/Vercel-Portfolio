@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LD logo">
+  <rect width="64" height="64" rx="14" fill="#1738d8"/>
+  <path d="M12 15h7v27h13v7H12z" fill="#f5f3ee"/>
+  <path d="M35 15h8a17 17 0 0 1 0 34h-8zm7 7v20h1a10 10 0 0 0 0-20z" fill="#f5f3ee" fill-rule="evenodd"/>
+  <circle cx="53" cy="11" r="5" fill="#f15d35"/>
+</svg>
