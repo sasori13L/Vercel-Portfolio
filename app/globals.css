@@ -275,6 +275,20 @@ img{ max-width:100%; display:block; }
 .project-card{
   background:var(--card); overflow:hidden; display:flex; flex-direction:column;
 }
+.project-card-featured{ grid-column:1 / -1; }
+.project-gallery{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.65rem;
+  padding:.65rem; background:var(--paper); border-bottom:1px dashed var(--frame);
+}
+.project-gallery-item{ min-width:0; margin:0; background:var(--card); border:1px solid var(--frame); }
+.project-gallery-trigger{
+  display:block; width:100%; padding:0; border:0; background:transparent; cursor:zoom-in;
+}
+.project-gallery-image{ display:block; width:100%; height:auto; }
+.project-gallery-item figcaption{
+  padding:.55rem .65rem; color:var(--ink-soft);
+  font-family:var(--mono); font-size:.65rem; line-height:1.45;
+}
 .project-thumb{ aspect-ratio:4/3; width:100%; }
 .placeholder-thumb{
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6rem;
@@ -296,6 +310,35 @@ img{ max-width:100%; display:block; }
   text-transform:uppercase; letter-spacing:.05em; margin:0 0 .7rem;
 }
 .project-body p:last-child{ color:var(--ink-soft); font-size:.92rem; margin:0; }
+
+@media (max-width:700px){
+  .project-gallery{ grid-template-columns:1fr; }
+}
+
+.image-modal-backdrop{
+  position:fixed; inset:0; z-index:200; display:grid; place-items:center;
+  padding:1rem; background:rgba(5,19,31,.9);
+}
+.image-modal{
+  position:relative; width:fit-content; max-width:96vw; max-height:96vh;
+  padding:3.25rem .75rem .75rem; background:var(--paper); border:1px solid var(--blue-line);
+  box-shadow:0 1.5rem 5rem rgba(0,0,0,.4);
+}
+.image-modal-close{
+  position:absolute; top:.5rem; right:.5rem; width:2.25rem; height:2.25rem;
+  display:grid; place-items:center; border:1px solid var(--redline);
+  background:var(--redline); color:var(--paper-ink); cursor:pointer;
+  font-size:1.7rem; line-height:1;
+}
+.image-modal-image{
+  display:block; width:min(92vw,1400px); height:auto; max-width:calc(96vw - 1.5rem);
+  max-height:calc(94vh - 5rem); max-height:calc(94dvh - 5rem);
+  object-fit:contain; margin:0 auto;
+}
+.image-modal-caption{
+  margin:.75rem 0 0; color:var(--ink-soft); text-align:center;
+  font-family:var(--mono); font-size:.75rem;
+}
 
 /* ===================================================================
    SKILLS — spec tags
@@ -321,9 +364,9 @@ img{ max-width:100%; display:block; }
   display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1rem;
 }
 .tool-card{
-  display:flex; align-items:center; gap:1rem;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem;
   background:var(--card);
-  padding:1.1rem 1.3rem;
+  padding:1.1rem 1.3rem; min-height:108px;
 }
 .tool-mark{
   font-family:var(--mono); font-size:.7rem; font-weight:500;
@@ -331,7 +374,10 @@ img{ max-width:100%; display:block; }
   display:flex; align-items:center; justify-content:center;
   background:var(--blue-deep); color:var(--paper-ink);
 }
-.tool-name{ font-size:.92rem; }
+.tool-logo{ width:150px; height:38px; flex:0 0 auto; object-fit:contain; }
+.tool-logo-costx{ object-fit:cover; object-position:center; }
+.tool-name{ font-size:.92rem; text-align:center; }
+.tool-description{ max-width:250px; margin:0; color:var(--ink-soft); font-size:.78rem; line-height:1.4; text-align:center; }
 
 /* ===================================================================
    EDUCATION / CREDENTIALS
