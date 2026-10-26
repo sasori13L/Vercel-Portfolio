@@ -1,55 +1,55 @@
 [
   {
     "id": "brunswick",
-    "title": "Brunswick Street Oval Precinct Sports Pavilion",
-    "meta": "Yarra City Council · Sports pavilion · North Fitzroy, Victoria",
+    "title": "Sports Pavilion",
+    "meta": "Sports pavilion · North Fitzroy, Victoria",
     "description": "Cost planning for a two-storey community sports pavilion, including structure, roofing, cladding, internal finishes, building services and external works.",
     "images": [
       {
         "src": "/projects/brunswick-roofing-ground-floor-finishes-and-ceilings.webp",
-        "alt": "Brunswick Street Oval Precinct Sports Pavilion: Ground floor · finishes, ceilings and roofing.",
+        "alt": "Sports Pavilion: Ground floor · finishes, ceilings and roofing.",
         "caption": "Ground floor · finishes, ceilings and roofing",
         "width": 892,
         "height": 719
       },
       {
         "src": "/projects/brunswick-roofing-level-1-finishes-and-ceilings.webp",
-        "alt": "Brunswick Street Oval Precinct Sports Pavilion: Level 1 · finishes, ceilings and roofing.",
+        "alt": "Sports Pavilion: Level 1 · finishes, ceilings and roofing.",
         "caption": "Level 1 · finishes, ceilings and roofing",
         "width": 876,
         "height": 698
       },
       {
         "src": "/projects/brunswick-cladding.webp",
-        "alt": "Brunswick Street Oval Precinct Sports Pavilion: Cladding elevations.",
+        "alt": "Sports Pavilion: Cladding elevations.",
         "caption": "Cladding elevations",
         "width": 1023,
         "height": 715
       },
       {
         "src": "/projects/brunswick-roofing.webp",
-        "alt": "Brunswick Street Oval Precinct Sports Pavilion: Roofing plan.",
+        "alt": "Sports Pavilion: Roofing plan.",
         "caption": "Roofing plan",
         "width": 816,
         "height": 615
       },
       {
         "src": "/projects/brunswick-3d-view.webp",
-        "alt": "Brunswick Street Oval Precinct Sports Pavilion: 3D render · exterior perspective.",
+        "alt": "Sports Pavilion: 3D render · exterior perspective.",
         "caption": "3D render · exterior perspective",
         "width": 828,
         "height": 465
       },
       {
         "src": "/projects/brunswick-3d-view-1.webp",
-        "alt": "Brunswick Street Oval Precinct Sports Pavilion: 3D render · architectural model.",
+        "alt": "Sports Pavilion: 3D render · architectural model.",
         "caption": "3D render · architectural model",
         "width": 931,
         "height": 524
       },
       {
         "src": "/projects/brunswick-3d-view-2.webp",
-        "alt": "Brunswick Street Oval Precinct Sports Pavilion: 3D render · pavilion exterior.",
+        "alt": "Sports Pavilion: 3D render · pavilion exterior.",
         "caption": "3D render · pavilion exterior",
         "width": 939,
         "height": 597
@@ -58,41 +58,41 @@
   },
   {
     "id": "le-page-park",
-    "title": "Le Page Park Master Plan — Northern Package",
-    "meta": "Kingston City Council · Tennis pavilion · Cheltenham, Victoria",
+    "title": "Tennis Pavilion",
+    "meta": "Tennis pavilion · Cheltenham, Victoria",
     "description": "Selected takeoff sheets for the new tennis pavilion, covering floor finishes, ceilings, partitions, roofing and windows within a wider sports and recreation redevelopment.",
     "images": [
       {
         "src": "/projects/le-page-park-tennis-pavilion-floor-finishes.webp",
-        "alt": "Le Page Park Master Plan — Northern Package: Tennis pavilion · floor finishes.",
+        "alt": "Tennis Pavilion: Floor finishes.",
         "caption": "Tennis pavilion · floor finishes",
         "width": 944,
         "height": 652
       },
       {
         "src": "/projects/le-page-park-tennis-pavilion-ceilings.webp",
-        "alt": "Le Page Park Master Plan — Northern Package: Tennis pavilion · ceilings.",
+        "alt": "Tennis Pavilion: Ceilings.",
         "caption": "Tennis pavilion · ceilings",
         "width": 1012,
         "height": 632
       },
       {
         "src": "/projects/le-page-park-tennis-pavilion-partitions.webp",
-        "alt": "Le Page Park Master Plan — Northern Package: Tennis pavilion · partitions.",
+        "alt": "Tennis Pavilion: Partitions.",
         "caption": "Tennis pavilion · partitions",
         "width": 1042,
         "height": 779
       },
       {
         "src": "/projects/le-page-park-tennis-pavilion-roofing.webp",
-        "alt": "Le Page Park Master Plan — Northern Package: Tennis pavilion · roofing.",
+        "alt": "Tennis Pavilion: Roofing.",
         "caption": "Tennis pavilion · roofing",
         "width": 825,
         "height": 696
       },
       {
         "src": "/projects/le-page-park-tennis-pavilion-windows.webp",
-        "alt": "Le Page Park Master Plan — Northern Package: Tennis pavilion · windows.",
+        "alt": "Tennis Pavilion: Windows.",
         "caption": "Tennis pavilion · windows",
         "width": 1029,
         "height": 459
@@ -101,41 +101,41 @@
   },
   {
     "id": "st-margarets",
-    "title": "St Margaret’s Berwick Grammar Gym Redevelopment",
-    "meta": "Education · Gymnasium and ancillary building · Berwick, Victoria",
+    "title": "Gym Redevelopment",
+    "meta": "Gymnasium and ancillary building · Berwick, Victoria",
     "description": "Quantity takeoff work for a new school gymnasium and adjoining ancillary building, including façade, partitions, sports mesh and 3D coordination views.",
     "images": [
       {
         "src": "/projects/st-margarets-cladding.webp",
-        "alt": "St Margaret’s Berwick Grammar Gym Redevelopment: Gymnasium · cladding elevations.",
+        "alt": "Gym Redevelopment: Gymnasium · cladding elevations.",
         "caption": "Gymnasium · cladding elevations",
         "width": 1380,
         "height": 826
       },
       {
         "src": "/projects/st-margarets-partitions-ancillary-building.webp",
-        "alt": "St Margaret’s Berwick Grammar Gym Redevelopment: Ancillary building · partitions.",
+        "alt": "Gym Redevelopment: Ancillary building · partitions.",
         "caption": "Ancillary building · partitions",
         "width": 1198,
         "height": 545
       },
       {
         "src": "/projects/st-margarets-partitions.webp",
-        "alt": "St Margaret’s Berwick Grammar Gym Redevelopment: Gymnasium · partitions.",
+        "alt": "Gym Redevelopment: Gymnasium · partitions.",
         "caption": "Gymnasium · partitions",
         "width": 1385,
         "height": 808
       },
       {
         "src": "/projects/st-margarets-sports-mesh.webp",
-        "alt": "St Margaret’s Berwick Grammar Gym Redevelopment: Sports mesh and ball catch.",
+        "alt": "Gym Redevelopment: Sports mesh and ball catch.",
         "caption": "Sports mesh and ball catch",
         "width": 1887,
         "height": 838
       },
       {
         "src": "/projects/st-margarets-3d-view.webp",
-        "alt": "St Margaret’s Berwick Grammar Gym Redevelopment: 3D render · gymnasium exterior.",
+        "alt": "Gym Redevelopment: 3D render · gymnasium exterior.",
         "caption": "3D render · gymnasium exterior",
         "width": 1274,
         "height": 685
@@ -144,27 +144,27 @@
   },
   {
     "id": "rockbank-elvc",
-    "title": "Rockbank Toolern Road P–6 & Early Learning Victoria Centre",
-    "meta": "Victorian School Building Authority · Early learning centre · Rockbank, Victoria",
+    "title": "Early Learning Centre",
+    "meta": "Early learning centre · Rockbank, Victoria",
     "description": "Takeoff and model views for the 130-place early learning centre, including building plans, architectural quantities and a 3D measurement view.",
     "images": [
       {
         "src": "/projects/rockbank-elvc-early-learning-centre-quantity-takeoff-1.webp",
-        "alt": "Rockbank Toolern Road P–6 & Early Learning Victoria Centre: Floor plan · model takeoff.",
+        "alt": "Early Learning Centre: Floor plan · model takeoff.",
         "caption": "Floor plan · model takeoff",
         "width": 906,
         "height": 583
       },
       {
         "src": "/projects/rockbank-elvc-early-learning-centre-quantity-takeoff.webp",
-        "alt": "Rockbank Toolern Road P–6 & Early Learning Victoria Centre: Software takeoff · floor plan.",
+        "alt": "Early Learning Centre: Software takeoff · floor plan.",
         "caption": "Software takeoff · floor plan",
         "width": 1440,
         "height": 861
       },
       {
         "src": "/projects/rockbank-elvc-early-learning-centre-quantity-takeoff-3.webp",
-        "alt": "Rockbank Toolern Road P–6 & Early Learning Victoria Centre: 3D model · quantity takeoff.",
+        "alt": "Early Learning Centre: 3D model · quantity takeoff.",
         "caption": "3D model · quantity takeoff",
         "width": 881,
         "height": 538
