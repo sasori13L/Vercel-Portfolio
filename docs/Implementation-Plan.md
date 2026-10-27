@@ -1,10 +1,10 @@
 # Workspace Access Demo — Implementation Plan
 
-This plan turns the requirements in [the product specification](./workspace-access-demo-spec.md) into an ordered, reviewable build sequence.
+This plan turns the requirements in [the product specification](./Specification-Plan.md) into an ordered, reviewable build sequence.
 
 ## 1. Implementation decisions
 
-- **Keep the existing portfolio intact.** Build the demo as a standalone Next.js App Router app under `demos/workspace-access/`, with its own `package.json`, Next.js config, TypeScript config, and Tailwind setup. Configure a separate Vercel project with that directory as its root. The demo can use Next.js routing and deployment conventions without changing the portfolio's root build.
+- **Use the repository root for the demo.** The root is a standalone Next.js App Router app with its own `package.json`, Next.js config, TypeScript config, and Tailwind setup. Configure the Vercel project with the repository root as its root directory. The portfolio links in the README continue to target their separately hosted sites.
 - **Use Supabase Auth plus direct, authenticated Supabase client calls.** RLS is the authorization boundary for all tenant records.
 - **Use two fictional organizations and at least two demo users.** Each user should belong to one organization for the initial demo; keep the schema capable of supporting multiple memberships.
 - **Provision memberships outside the browser.** Public sign-up must not grant organization membership. Create demo Auth users in Supabase and associate their IDs with memberships through a documented trusted setup step.
@@ -14,23 +14,23 @@ This plan turns the requirements in [the product specification](./workspace-acce
 
 ### Tasks
 
-1. Create `demos/workspace-access/` as an independent Next.js App Router + React + TypeScript app.
+1. Use the repository root as an independent Next.js App Router + React + TypeScript app.
 2. Add Tailwind and establish a small set of reusable layout, form, button, badge, and panel styles.
 3. Add `.env.example` with only client-side variable names, such as `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`; include no real credentials.
-4. Add an app README or link it to the root README, explaining the app's independent setup.
-5. Create a separate Vercel project rooted at `demos/workspace-access/`; use the Next.js preset and its detected build/output settings.
+4. Keep the root README up to date with the app setup and deployment instructions.
+5. Create a Vercel project rooted at the repository root; use the Next.js preset and its detected build/output settings.
 
 ### Exit criteria
 
-- The demo runs independently from its directory.
-- The existing portfolio's dependencies and root scripts remain unchanged.
-- A Vercel preview can build the standalone Next.js demo without deploying the portfolio as the demo.
+- The demo runs from the repository root.
+- The portfolio links remain available in the README, and its hosted deployments remain independent.
+- A Vercel preview can build the standalone Next.js demo from the repository root.
 
 ## 3. Phase 1 — Supabase schema, seed setup, and RLS
 
 ### Tasks
 
-1. Add a Supabase migration directory under `demos/workspace-access/supabase/migrations/`.
+1. Add a Supabase migration directory under `supabase/migrations/`.
 2. Create `organizations`, `memberships`, and `tasks` with the fields, foreign keys, defaults, and constraints in the spec.
 3. Add indexes for `tasks.organization_id` and `memberships.user_id`.
 4. Enable RLS on all three exposed tables.
@@ -118,7 +118,7 @@ This plan turns the requirements in [the product specification](./workspace-acce
 - A reviewer can follow the README to understand and try the demo.
 - The Vercel deployment uses only public client configuration.
 - Both demo accounts work and isolation is demonstrable in the deployed environment.
-- The portfolio's root app remains deployable independently.
+- The app builds from the repository root, and the README retains links to the portfolio deployments.
 
 ## 8. Verification matrix
 
@@ -146,7 +146,7 @@ Run these checks using real authenticated sessions for each demo user, not only 
 
 ## 10. Main implementation risks
 
-- **Portfolio/demo separation:** isolate the Next.js demo in a subdirectory and deploy it as a separate Vercel project; do not merge it into the portfolio root app as part of this demo.
+- **Root app ownership:** the repository root now builds the workspace access demo; keep the separate portfolio deployment links documented in the README.
 - **Membership bootstrap:** migrations cannot safely assume Auth user IDs. Create demo Auth users first, then provision memberships through the documented trusted step.
 - **RLS policy gaps:** test each operation independently; a correct `SELECT` rule does not automatically secure writes.
 - **Public demo writes:** public credentials make the demo easy to inspect but allow users to modify their own tenant's sample data. Use synthetic data and decide whether public writes or read-only access best fits the portfolio.
@@ -154,4 +154,4 @@ Run these checks using real authenticated sessions for each demo user, not only 
 
 ## 11. Definition of done
 
-The demo is done when every acceptance criterion in the product spec is implemented or has a documented verification step, both tenant accounts can use the deployed app, cross-tenant reads and writes are blocked by RLS, and the standalone Next.js demo and existing portfolio can be deployed independently.
+The demo is done when every acceptance criterion in the product spec is implemented or has a documented verification step, both tenant accounts can use the deployed app, cross-tenant reads and writes are blocked by RLS, and the standalone Next.js demo builds from the repository root while portfolio links remain documented.
