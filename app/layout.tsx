@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Lemuel De Castro — Full-stack developer",
-  description: "Full-stack developer building dependable systems across Laravel, Next.js, Flutter, and AI integrations.",
+  title: "Lemuel De Castro — Senior Full-Stack Developer",
+  description: "Senior full-stack developer in Cebu City with 10+ years building dependable systems across PHP, Laravel, Next.js, Flutter, and AI integrations.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

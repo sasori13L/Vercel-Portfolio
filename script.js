@@ -186,7 +186,6 @@ const COMMANDS = [
   { name: "Email Lemuel", tag: "mailto:lemueldecastro13@gmail.com", action: () => (window.location.href = "mailto:lemueldecastro13@gmail.com") },
   { name: "Copy email address", tag: "clipboard", action: () => copyBtn && copyBtn.click() },
   { name: "Open LinkedIn", tag: "linkedin.com", action: () => window.open("https://www.linkedin.com/in/lemuel-de-castro-a19524194", "_blank", "noopener") },
-  { name: "Call", tag: "+63 916 512 6146", action: () => (window.location.href = "tel:+639165126146") },
 ];
 
 function scrollToId(id) {
