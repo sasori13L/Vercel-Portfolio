@@ -44,8 +44,16 @@ function TechIcon({ name }: { name: string }) {
   return <span className={styles.techIcon} style={icon ? { "--icon-color": `#${icon.hex}` } as React.CSSProperties : undefined}>{icon ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon.path} /></svg> : <span>{name.slice(0, 1)}</span>}</span>;
 }
 
+function ProjectLinkIcon({ type }: { type: "live" | "github" }) {
+  return type === "github" ? (
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d={iconData.github.path} /></svg>
+  ) : (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M13 5h6v6M19 5l-9 9" /><path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" /></svg>
+  );
+}
+
 const commands = [
-  ["About", "#about"], ["Experience", "#experience"], ["Stack", "#stack"], ["Education", "#education"], ["Contact", "#contact"],
+  ["About", "#about"], ["Experience", "#experience"], ["Projects", "#projects"], ["Stack", "#stack"], ["Education", "#education"], ["Contact", "#contact"],
 ] as const;
 
 export default function Home() {
@@ -87,7 +95,7 @@ export default function Home() {
           <div className={styles.heroLabel}><span className={styles.pulse} /> Available for selected projects</div>
           <h1>I make complex systems feel <em>simple.</em></h1>
           <p className={styles.heroLead}>Senior full-stack developer with 10+ years turning legacy codebases, manual workflows, and ambitious product ideas into dependable software.</p>
-          <div className={styles.heroActions}><a className={styles.buttonPrimary} href="#experience">Explore my work <span>↓</span></a><a className={styles.textLink} href="https://www.linkedin.com/in/lemuel-de-castro-a19524194" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+          <div className={styles.heroActions}><a className={styles.buttonPrimary} href="#projects">Explore my work <span>↓</span></a><a className={styles.textLink} href="https://www.linkedin.com/in/lemuel-de-castro-a19524194" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
         </div>
         <div className={styles.heroVisual}>
           <div className={`${styles.orbit} ${styles.orbitOne}`} /><div className={`${styles.orbit} ${styles.orbitTwo}`} />
@@ -101,11 +109,37 @@ export default function Home() {
 
       <section className={`${styles.section} ${styles.experienceSection}`} id="experience"><div className={styles.sectionIntro}><span className={styles.kicker}>02 — EXPERIENCE</span><h2>A decade of<br /><span>shipping systems.</span></h2><p className={styles.sectionAside}>From paper-based processes to AI-assisted products, I&apos;ve worked where the messy parts are.</p></div><div className={styles.timeline}>{experiences.map((item, index) => <article className={`${styles.job} ${openRole === index ? styles.jobOpen : ""}`} key={`${item.role}-${item.org}`}><button className={styles.jobHeader} onClick={() => setOpenRole(openRole === index ? -1 : index)} aria-expanded={openRole === index}><span className={styles.jobIndex}>0{index + 1}</span><span className={styles.jobTitle}><strong>{item.role}</strong><small>{item.org} · {item.place}</small></span><span className={styles.jobDate}>{item.dates}{item.current && <i>Current</i>}</span><span className={styles.chevron}>↗</span></button>{openRole === index && <div className={styles.jobDetails}><ul>{item.points.map((point) => <li key={point}>{point}</li>)}</ul></div>}</article>)}</div></section>
 
-      <section className={`${styles.section} ${styles.stackSection}`} id="stack"><div className={styles.sectionIntro}><span className={styles.kicker}>03 — TOOLKIT</span><h2>Tools are only<br /><span>half the story.</span></h2></div><div className={styles.stackBody}><p className={styles.stackLead}>A practical, evolving toolkit for building products that hold up in production.</p><div className={styles.filters}>{["All", ...Object.keys(stacks)].map((item) => <button key={item} className={category === item ? styles.filterActive : ""} onClick={() => setCategory(item as "All" | StackCategory)}>{item}</button>)}</div><div className={styles.techGrid}>{visibleStack.map((item) => <span key={item} className={styles.techItem}><TechIcon name={item} />{item}</span>)}</div></div></section>
+      <section className={`${styles.section} ${styles.projectsSection}`} id="projects">
+        <div className={styles.sectionIntro}><span className={styles.kicker}>03 — PROJECTS</span><h2>Built to solve<br /><span>real problems.</span></h2><p className={styles.sectionAside}>A selection of practical tools, from audio workflows to fleet operations.</p></div>
+        <div className={styles.projectList}>
+          <article className={styles.projectCard}>
+            <div className={styles.projectTop}><span>01 / AUDIO TOOL</span><span>↗</span></div>
+            <h3>Audio Transcriber</h3>
+            <p>A browser-based workspace for transcribing audio, editing timestamped text, and exporting transcripts or subtitles. Transcription runs on your device.</p>
+            <div className={styles.projectTags}><span>Next.js</span><span>Transformers.js</span><span>Whisper</span></div>
+            <div className={styles.projectLinks}>
+              <a className={`${styles.projectLink} ${styles.projectDemoLink}`} href="https://dc-transcriber.vercel.app" target="_blank" rel="noreferrer" aria-label="Visit DC Transcriber live demo"><ProjectLinkIcon type="live" /> Visit live demo</a>
+              <a className={styles.projectLink} href="https://github.com/TheoAppSolutions/DC-Transcriber" target="_blank" rel="noreferrer" aria-label="View DC Transcriber repository on GitHub" title="View repository on GitHub"><ProjectLinkIcon type="github" /></a>
+            </div>
+          </article>
+          <article className={styles.projectCard}>
+            <div className={styles.projectTop}><span>02 / OPERATIONS SYSTEM</span><span>↗</span></div>
+            <h3>Marine Management System</h3>
+            <p>A marine work order management system that connects vessels, captains, and crew through assignment, progress tracking, and completion review.</p>
+            <div className={styles.projectTags}><span>Next.js</span><span>TypeScript</span><span>Supabase</span></div>
+            <div className={styles.projectLinks}>
+              <a className={`${styles.projectLink} ${styles.projectDemoLink}`} href="https://dc-fleet-ops.vercel.app" target="_blank" rel="noreferrer" aria-label="Visit FleetOps live demo"><ProjectLinkIcon type="live" /> Visit live demo</a>
+              <a className={styles.projectLink} href="https://github.com/TheoAppSolutions/DC-FleetOps" target="_blank" rel="noreferrer" aria-label="View FleetOps repository on GitHub" title="View repository on GitHub"><ProjectLinkIcon type="github" /></a>
+            </div>
+          </article>
+        </div>
+      </section>
 
-      <section className={`${styles.section} ${styles.educationSection}`} id="education"><div className={styles.sectionIntro}><span className={styles.kicker}>04 — EDUCATION</span><h2>Grounded in<br /><span>computer science.</span></h2></div><div className={styles.educationCard}><strong>Bachelor of Science in Computer Science</strong><span>ACLC College</span><small>June 2011 — April 2015</small></div></section>
+      <section className={`${styles.section} ${styles.stackSection}`} id="stack"><div className={styles.sectionIntro}><span className={styles.kicker}>04 — TOOLKIT</span><h2>Tools are only<br /><span>half the story.</span></h2></div><div className={styles.stackBody}><p className={styles.stackLead}>A practical, evolving toolkit for building products that hold up in production.</p><div className={styles.filters}>{["All", ...Object.keys(stacks)].map((item) => <button key={item} className={category === item ? styles.filterActive : ""} onClick={() => setCategory(item as "All" | StackCategory)}>{item}</button>)}</div><div className={styles.techGrid}>{visibleStack.map((item) => <span key={item} className={styles.techItem}><TechIcon name={item} />{item}</span>)}</div></div></section>
 
-      <section className={styles.contactSection} id="contact"><div className={styles.contactInner}><span className={styles.kicker}>05 — CONTACT</span><h2>Have a messy problem<br /><em>worth solving?</em></h2><p>I&apos;m open to full-stack roles and freelance projects — especially the kind with a legacy codebase attached.</p><a className={styles.contactEmail} href="mailto:lemueldecastro13@gmail.com">lemueldecastro13@gmail.com <span>↗</span></a><div className={styles.contactLinks}><a href="https://github.com/TheoAppSolutions" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/lemuel-de-castro-a19524194" target="_blank" rel="noreferrer">LinkedIn ↗</a></div><div className={styles.contactBottom}><button onClick={copyEmail}>{copied ? "Copied to clipboard" : "Copy email address"}</button><span>Cebu City, Philippines</span></div></div></section>
+      <section className={`${styles.section} ${styles.educationSection}`} id="education"><div className={styles.sectionIntro}><span className={styles.kicker}>05 — EDUCATION</span><h2>Grounded in<br /><span>computer science.</span></h2></div><div className={styles.educationCard}><strong>Bachelor of Science in Computer Science</strong><span>ACLC College</span><small>June 2011 — April 2015</small></div></section>
+
+      <section className={styles.contactSection} id="contact"><div className={styles.contactInner}><span className={styles.kicker}>06 — CONTACT</span><h2>Have a messy problem<br /><em>worth solving?</em></h2><p>I&apos;m open to full-stack roles and freelance projects — especially the kind with a legacy codebase attached.</p><a className={styles.contactEmail} href="mailto:lemueldecastro13@gmail.com">lemueldecastro13@gmail.com <span>↗</span></a><div className={styles.contactLinks}><a href="https://github.com/TheoAppSolutions" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/lemuel-de-castro-a19524194" target="_blank" rel="noreferrer">LinkedIn ↗</a></div><div className={styles.contactBottom}><button onClick={copyEmail}>{copied ? "Copied to clipboard" : "Copy email address"}</button><span>Cebu City, Philippines</span></div></div></section>
     </main>
 
     <footer className={styles.footer}><span>© 2026 Lemuel De Castro</span><span>Built with care, curiosity, and a lot of tabs.</span><span>B.S. Computer Science · ACLC College</span></footer>
